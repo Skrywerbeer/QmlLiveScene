@@ -6,7 +6,7 @@ LiveView::LiveView(QUrl &file, QWindow*parent) :
     QQuickView(parent),
     _qmlUrl(file),
     _refreshTimer(new QTimer(this)) {
-	setFlag(Qt::WindowStaysOnTopHint, true);
+	setFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
 	connect(this, &QQuickView::statusChanged,
 	        this, &LiveView::statusChangedHandler);
 
@@ -76,6 +76,7 @@ void LiveView::initTimer() {
 void LiveView::initControlPanel() {
 	_controlPanel = new QQuickView(QUrl("qrc:/qml/ControlPanel.qml"));
 	_controlPanel->setFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+	_controlPanel->setTitle("Controls");
 	_controlPanel->setPosition(x() + width(), y());
 
 	connect(this, &QQuickView::widthChanged, [=]() {
