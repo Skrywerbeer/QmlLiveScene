@@ -26,10 +26,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS
 	Core
+	Gui
 	Widgets
 	Quick REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
 	Core
+	Gui
 	Widgets
 	Quick REQUIRED)
 
@@ -59,5 +61,6 @@ target_compile_definitions(LiveScene
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(LiveScene PRIVATE
 	Qt${QT_VERSION_MAJOR}::Core
+	Qt${QT_VERSION_MAJOR}::Gui
 	Qt${QT_VERSION_MAJOR}::Widgets
 	Qt${QT_VERSION_MAJOR}::Quick)

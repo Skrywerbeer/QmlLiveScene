@@ -2,6 +2,7 @@
 #define LIVEVIEW_H
 
 #include <QObject>
+#include <QScreen>
 #include <QQuickView>
 #include <QQmlEngine>
 #include <QQuickItem>

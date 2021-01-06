@@ -84,7 +84,11 @@ void LiveView::initControlPanel() {
 		_controlPanel->setX(x() + width());
 	});
 	connect(this, &QQuickView::xChanged, [=]() {
-		_controlPanel->setX(x() + width());
+		const int RIGHT_EDGE = x() + width();
+		if ((RIGHT_EDGE+_controlPanel->width()) > screen()->availableGeometry().width())
+			_controlPanel->setX(x() - _controlPanel->width());
+		else
+			_controlPanel->setX(x() + width());
 	});
 	connect(this, &QQuickView::heightChanged, [=]() {
 		_controlPanel->setY(y());
