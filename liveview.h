@@ -18,6 +18,7 @@ class LiveView : public QQuickView {
 		void setFile(QUrl &file);
 
 		bool event(QEvent *event) override;
+		void timerEvent(QTimerEvent *event) override;
 
 	public slots:
 		void reloadFile();
@@ -34,7 +35,6 @@ class LiveView : public QQuickView {
 		QUrl _qmlUrl;
 		QQuickView *_controlPanel;
 		static const QUrl errorPage;
-		QTimer *_refreshTimer;
 		QDateTime _lastModifiedTime;
 
 		void initTimer();

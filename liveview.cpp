@@ -4,19 +4,16 @@ const QUrl LiveView::errorPage("qrc:/qml/ErrorPage.qml");
 
 LiveView::LiveView(QUrl &file, QWindow*parent) :
     QQuickView(parent),
-    _qmlUrl(file),
-    _refreshTimer(new QTimer(this)) {
+    _qmlUrl(file) {
 	setFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
 	connect(this, &QQuickView::statusChanged,
 	        this, &LiveView::statusChangedHandler);
-
 	setSource(_qmlUrl);
 	initTimer();
 	initControlPanel();
 }
 
 LiveView::~LiveView() {
-	qDebug() << "destructor!";
 	_controlPanel->deleteLater();
 }
 
@@ -33,6 +30,15 @@ bool LiveView::event(QEvent *event) {
 		QCoreApplication::quit();
 	}
 	return QQuickView::event(event);
+}
+
+void LiveView::timerEvent(QTimerEvent *event) {
+	QFile qmlFile(_qmlUrl.toString());
+	const QDateTime modTime = qmlFile.fileTime(QFileDevice::FileModificationTime);
+	if (modTime != _lastModifiedTime) {
+		_lastModifiedTime = modTime;
+		reloadFile();
+	}
 }
 
 void LiveView::reloadFile() {
@@ -63,14 +69,9 @@ void LiveView::quit() {
 }
 
 void LiveView::initTimer() {
-	const uint REFRESH_TIMEOUT = 1000;
-	_refreshTimer->setInterval(REFRESH_TIMEOUT);
-	_refreshTimer->setSingleShot(false);
 	QFile qmlFile(_qmlUrl.toString());
 	_lastModifiedTime = qmlFile.fileTime(QFileDevice::FileModificationTime);
-	connect(_refreshTimer, &QTimer::timeout,
-	        this, &LiveView::checkForUpdate);
-	_refreshTimer->start();
+	startTimer(1000);
 }
 
 void LiveView::initControlPanel() {
