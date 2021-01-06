@@ -1,5 +1,11 @@
 <RCC>
-    <qresource prefix="/pages">
+    <qresource prefix="/qml">
         <file>ErrorPage.qml</file>
+        <file>ControlPanel.qml</file>
+        <file>Button.qml</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>reload.svg</file>
+        <file>close.svg</file>
     </qresource>
 </RCC>

@@ -13,26 +13,32 @@ class LiveView : public QQuickView {
 		Q_OBJECT
 	public:
 		explicit LiveView(QUrl &file, QWindow *parent = nullptr);
-		explicit LiveView(QWindow *parent = nullptr);
+		~LiveView();
 
 		void setFile(QUrl &file);
 
+		bool event(QEvent *event) override;
+
 	public slots:
 		void reloadFile();
+		void checkForUpdate();
 
 	private slots:
 		void statusChangedHandler();
+		void quit();
 
 	signals:
 		void fileChanged();
 
 	private:
 		QUrl _qmlUrl;
+		QQuickView *_controlPanel;
 		static const QUrl errorPage;
 		QTimer *_refreshTimer;
 		QDateTime _lastModifiedTime;
 
 		void initTimer();
+		void initControlPanel();
 };
 
 #endif // LIVEVIEW_H
