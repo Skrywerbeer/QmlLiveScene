@@ -6,6 +6,7 @@
 #include <QQuickView>
 #include <QQmlEngine>
 #include <QQuickItem>
+#include <QFile>
 #include <QUrl>
 #include <QTimer>
 #include <QDateTime>

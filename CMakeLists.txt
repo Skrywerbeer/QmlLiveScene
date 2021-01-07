@@ -24,16 +24,20 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #    endif()
 #endif()
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS
+find_package(QT NAMES Qt6 COMPONENTS
 	Core
 	Gui
 	Widgets
-	Quick REQUIRED)
+	Quick
+	Quick3D
+	REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
 	Core
 	Gui
 	Widgets
-	Quick REQUIRED)
+	Quick
+	Quick3D
+	REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -63,4 +67,6 @@ target_link_libraries(LiveScene PRIVATE
 	Qt${QT_VERSION_MAJOR}::Core
 	Qt${QT_VERSION_MAJOR}::Gui
 	Qt${QT_VERSION_MAJOR}::Widgets
-	Qt${QT_VERSION_MAJOR}::Quick)
+	Qt${QT_VERSION_MAJOR}::Quick
+	Qt${QT_VERSION_MAJOR}::Quick3D
+	)

@@ -2,6 +2,8 @@
 #include <QQmlApplicationEngine>
 #include <QCommandLineParser>
 
+#include <QQmlContext>
+
 #include <QDebug>
 
 #include "liveview.h"
@@ -23,6 +25,7 @@ int main(int argc, char *argv[]) {
 	QUrl file(parser.positionalArguments().at(0));
 	LiveView live(file);
 	live.show();
+	qDebug() << live.rootContext()->nameForObject(live.rootObject());
 
 	return app.exec();
 }
