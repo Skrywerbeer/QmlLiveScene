@@ -19,7 +19,6 @@ class LiveView : public QQuickView {
 
 		void setFile(QUrl &file);
 
-		bool event(QEvent *event) override;
 		void timerEvent(QTimerEvent *event) override;
 
 	public slots:

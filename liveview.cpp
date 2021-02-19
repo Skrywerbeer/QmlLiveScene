@@ -25,13 +25,6 @@ void LiveView::setFile(QUrl &file) {
 	emit fileChanged();
 }
 
-bool LiveView::event(QEvent *event) {
-	if (event->type() == QEvent::Close) {
-		QCoreApplication::quit();
-	}
-	return QQuickView::event(event);
-}
-
 void LiveView::timerEvent(QTimerEvent *event) {
 	QFile qmlFile(_qmlUrl.toString());
 	const QDateTime modTime = qmlFile.fileTime(QFileDevice::FileModificationTime);
@@ -100,5 +93,7 @@ void LiveView::initControlPanel() {
 	        this, SLOT(reloadFile()));
 	connect(_controlPanel->rootObject(), SIGNAL(close()),
 	        this, SLOT(quit()));
+	connect(_controlPanel->rootObject(), SIGNAL(move()),
+	        this, SLOT(startSystemMove()));
 	_controlPanel->show();
 }

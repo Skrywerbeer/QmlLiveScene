@@ -4,6 +4,7 @@ Rectangle {
     id: root
 
     signal close
+    signal move
     signal reload
 
     width: childrenRect.width
@@ -13,12 +14,18 @@ Rectangle {
     Column {
         Button {
             id: closeBtn
-            icon: "qrc:/icons/close.svg"
+            icon: "qrc:/icons/close.png"
             onPressed: root.close()
         }
         Button {
+            id: moveBtn
+            icon: "qrc:/icons/move.png"
+            onPressed: root.move()
+        }
+
+        Button {
             id: reloadBtn
-            icon: "qrc:/icons/reload.svg"
+            icon: "qrc:/icons/reload.png"
             onPressed: root.reload()
         }
     }
